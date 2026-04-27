@@ -1,0 +1,18 @@
+{
+    "profiles": {
+        "list": [
+            {
+                "name": "VPS - root",
+                "commandline": "ssh root@187.124.235.228",
+                "icon": "🖥️",
+                "tabTitle": "VPS root"
+            },
+            {
+                "name": "VPS - admin",
+                "commandline": "ssh admin@187.124.235.228",
+                "icon": "🖥️",
+                "tabTitle": "VPS admin"
+            }
+        ]
+    }
+}
