@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkedIn to PDF Converter</title>
+    <title>LinkedIn to PDF</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f3f2ef;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -21,210 +17,299 @@
             padding: 20px;
         }
 
-        .container {
+        .card {
             background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.1);
             padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
+            max-width: 540px;
             width: 100%;
         }
 
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: #0077B5;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 20px;
+            font-style: italic;
+        }
+
         h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 32px;
-            text-align: center;
+            font-size: 22px;
+            color: #1d1d1d;
+            font-weight: 600;
         }
 
         .subtitle {
             color: #666;
-            text-align: center;
-            margin-bottom: 30px;
             font-size: 14px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 28px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1d1d1d;
+            margin-bottom: 6px;
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
+            padding: 11px 14px;
+            border: 1.5px solid #d0d0d0;
+            border-radius: 6px;
+            font-size: 15px;
+            color: #1d1d1d;
+            transition: border-color 0.2s;
+            margin-bottom: 16px;
         }
 
         input[type="text"]:focus {
             outline: none;
-            border-color: #667eea;
-        }
-
-        .button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .button:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .loader {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .loader.active {
-            display: block;
-        }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .message {
-            margin-top: 20px;
-            padding: 12px;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .message.active {
-            display: block;
-        }
-
-        .message.error {
-            background-color: #fee;
-            color: #c33;
-            border: 1px solid #fcc;
-        }
-
-        .message.success {
-            background-color: #efe;
-            color: #3c3;
-            border: 1px solid #cfc;
+            border-color: #0077B5;
         }
 
         .example {
-            background-color: #f5f5f5;
+            font-size: 12px;
+            color: #888;
+            margin-top: -12px;
+            margin-bottom: 18px;
+        }
+
+        .btn {
+            width: 100%;
             padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
+            background: #0077B5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn:hover:not(:disabled) { background: #006097; }
+        .btn:active:not(:disabled) { transform: scale(0.99); }
+        .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+        /* Status badge */
+        .server-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ccc;
+            flex-shrink: 0;
+        }
+
+        .status-dot.online { background: #57a55a; }
+        .status-dot.auth { background: #0077B5; }
+        .status-dot.offline { background: #cc4444; }
+
+        /* Loader */
+        .loader { display: none; margin-top: 20px; }
+        .loader.active { display: block; }
+
+        .spinner-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .spinner {
+            border: 3px solid #eee;
+            border-top: 3px solid #0077B5;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 0.9s linear infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .spinner-label {
             font-size: 13px;
-            color: #666;
+            color: #555;
+            font-weight: 500;
         }
 
-        .example strong {
-            color: #333;
+        /* Progress steps */
+        .progress-steps { margin-top: 4px; }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 0;
+            font-size: 13px;
+            color: #bbb;
+            transition: color 0.3s;
         }
 
-        .features {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
+        .step-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #ddd;
+            flex-shrink: 0;
+            transition: background 0.3s;
         }
 
-        .features h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 18px;
+        .step.active { color: #0077B5; font-weight: 500; }
+        .step.active .step-dot { background: #0077B5; }
+        .step.done { color: #57a55a; }
+        .step.done .step-dot { background: #57a55a; }
+
+        /* Message */
+        .message {
+            margin-top: 16px;
+            padding: 12px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.5;
+            display: none;
         }
 
-        .features ul {
-            list-style: none;
-            padding-left: 0;
+        .message.active { display: block; }
+        .message.error { background: #fff0f0; color: #c0392b; border: 1px solid #fcc; }
+        .message.success { background: #f0fff4; color: #27ae60; border: 1px solid #cfc; }
+
+        .message .help-text {
+            margin-top: 8px;
+            font-size: 12px;
+            opacity: 0.85;
         }
 
-        .features li {
-            padding: 8px 0;
-            color: #666;
-            font-size: 14px;
+        /* Advanced / cookie section */
+        .advanced-section {
+            margin-top: 24px;
+            border-top: 1px solid #eee;
+            padding-top: 16px;
         }
 
-        .features li:before {
-            content: "✓ ";
-            color: #667eea;
-            font-weight: bold;
-            margin-right: 8px;
+        summary {
+            font-size: 13px;
+            color: #0077B5;
+            cursor: pointer;
+            font-weight: 500;
+            user-select: none;
+        }
+
+        summary:hover { text-decoration: underline; }
+
+        .cookie-instructions {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .cookie-instructions ol {
+            margin: 10px 0 10px 18px;
+        }
+
+        .cookie-instructions li { margin-bottom: 4px; }
+
+        .cookie-instructions code {
+            background: #f5f5f5;
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #d63031;
+        }
+
+        .cookie-instructions .note {
+            font-size: 12px;
+            color: #888;
+            margin-top: 8px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>LinkedIn to PDF</h1>
-        <p class="subtitle">Convert LinkedIn profiles to PDF documents instantly</p>
+    <div class="card">
+        <div class="logo">
+            <div class="logo-icon">in</div>
+            <h1>LinkedIn to PDF</h1>
+        </div>
+        <p class="subtitle">Convert any LinkedIn profile to a downloadable PDF</p>
+
+        <div class="server-status">
+            <div class="status-dot" id="statusDot"></div>
+            <span id="statusText">Connecting to server...</span>
+        </div>
 
         <form id="pdfForm">
-            <div class="form-group">
-                <label for="linkedinUrl">LinkedIn Profile URL</label>
-                <input
-                    type="text"
-                    id="linkedinUrl"
-                    name="linkedinUrl"
-                    placeholder="https://www.linkedin.com/in/username"
-                    required
-                >
-                <div class="example">
-                    <strong>Example:</strong> https://www.linkedin.com/in/satyanadella
-                </div>
-            </div>
+            <label for="linkedinUrl">LinkedIn Profile URL</label>
+            <input
+                type="text"
+                id="linkedinUrl"
+                placeholder="https://www.linkedin.com/in/username"
+                autocomplete="off"
+                spellcheck="false"
+                required
+            >
+            <p class="example">e.g. https://www.linkedin.com/in/satyanadella</p>
 
-            <button type="submit" class="button" id="submitBtn">
-                Generate PDF
-            </button>
+            <button type="submit" class="btn" id="submitBtn">Generate PDF</button>
         </form>
 
         <div class="loader" id="loader">
-            <div class="spinner"></div>
-            <p>Generating your PDF... This may take a moment.</p>
+            <div class="spinner-row">
+                <div class="spinner"></div>
+                <span class="spinner-label" id="spinnerLabel">Starting...</span>
+            </div>
+            <div class="progress-steps" id="progressSteps">
+                <div class="step" id="step-1"><div class="step-dot"></div>Launching secure browser</div>
+                <div class="step" id="step-2"><div class="step-dot"></div>Loading LinkedIn profile</div>
+                <div class="step" id="step-3"><div class="step-dot"></div>Waiting for content to load</div>
+                <div class="step" id="step-4"><div class="step-dot"></div>Capturing all profile sections</div>
+                <div class="step" id="step-5"><div class="step-dot"></div>Generating PDF document</div>
+            </div>
         </div>
 
         <div class="message" id="message"></div>
 
-        <div class="features">
-            <h3>Features</h3>
-            <ul>
-                <li>Instant PDF generation from LinkedIn profiles</li>
-                <li>High-quality document output</li>
-                <li>Preserves profile layout and formatting</li>
-                <li>Free and easy to use</li>
-            </ul>
-        </div>
+        <details class="advanced-section">
+            <summary>Getting blank pages or login errors?</summary>
+            <div class="cookie-instructions">
+                <p>LinkedIn requires login for most profiles. To fix this, configure your LinkedIn session cookie on the server:</p>
+                <ol>
+                    <li>Log into LinkedIn in <strong>Chrome</strong></li>
+                    <li>Press <code>F12</code> → <strong>Application</strong> tab → <strong>Cookies</strong> → <code>https://www.linkedin.com</code></li>
+                    <li>Find the cookie named <code>li_at</code> and copy its value</li>
+                    <li>On your server, add this to your <code>.env</code> file:<br>
+                        <code>LINKEDIN_LI_AT_COOKIE=paste-value-here</code>
+                    </li>
+                    <li>Restart the server: <code>pm2 restart linkedin-pdf</code></li>
+                </ol>
+                <p class="note">When configured, the status badge above will show "Authenticated mode".</p>
+            </div>
+        </details>
     </div>
 
     <script src="app.js"></script>
